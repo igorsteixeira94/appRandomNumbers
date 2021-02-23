@@ -1,16 +1,12 @@
 import React, { useCallback, useState } from 'react';
-import {
-  SafeAreaView,
-  StyleSheet,
-  Text,
-  TouchableOpacity,
-  View,
-} from 'react-native';
-import MultiSlider from '@ptomasroos/react-native-multi-slider';
+import { SafeAreaView, StyleSheet, Text, PlatformColor } from 'react-native';
+
+import Button from './components/Button';
+import RangeComponents from './components/RangeComponent';
 
 const RandomNumbers: React.FC = () => {
-  const [number, setNumber] = useState(0);
-  const [randomRange, setRandomRange] = useState([0, 50]); // [0] => Representa o valor minimo do range e [1] => valor maximo
+  const [number, setNumber] = useState<number>(0);
+  const [randomRange, setRandomRange] = useState<number[]>([0, 50]); // [0] => Representa o valor minimo do range e [1] => valor maximo
 
   const handleBuildNumber = useCallback(() => {
     const newNumber = Math.floor(
@@ -21,26 +17,13 @@ const RandomNumbers: React.FC = () => {
 
   return (
     <SafeAreaView style={styles.container}>
-      <Text style={styles.textButton}>Selecione o intervalo</Text>
-      <View style={styles.containerSlider}>
-        <Text style={[styles.textRange, { marginRight: 20 }]}>
-          {randomRange[0]}
-        </Text>
-        <MultiSlider
-          max={100}
-          values={randomRange}
-          isMarkersSeparated
-          onValuesChange={setRandomRange}
-        />
-        <Text style={[styles.textRange, { marginLeft: 20 }]}>
-          {randomRange[1]}
-        </Text>
-      </View>
-
+      <Text style={styles.title}>Selecione o intervalo</Text>
+      <RangeComponents
+        randomRange={randomRange}
+        setRandomRange={setRandomRange}
+      />
       <Text style={styles.text}>{number}</Text>
-      <TouchableOpacity onPress={handleBuildNumber} style={styles.button}>
-        <Text style={styles.textButton}>Gerar número</Text>
-      </TouchableOpacity>
+      <Button onPress={handleBuildNumber}>Gerar número</Button>
     </SafeAreaView>
   );
 };
@@ -58,16 +41,10 @@ const styles = StyleSheet.create({
     color: '#fff',
     marginBottom: 20,
   },
-  textButton: {
+  title: {
     fontSize: 20,
     fontWeight: 'bold',
     color: '#fff',
-  },
-  button: {
-    borderRadius: 6,
-    borderWidth: 1,
-    borderColor: '#fff',
-    padding: 6,
   },
   containerSlider: {
     flexDirection: 'row',

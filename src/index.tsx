@@ -1,8 +1,14 @@
 import React from 'react';
-import { View } from 'react-native';
+import { StatusBar, View } from 'react-native';
+import RandomNumbers from './screens/RandowNumbers';
 
 const App: React.FC = () => {
-  return <View />;
+  return (
+    <>
+      <StatusBar backgroundColor="#353e4d" barStyle="light-content" />
+      <RandomNumbers />
+    </>
+  );
 };
 
 export default App;
